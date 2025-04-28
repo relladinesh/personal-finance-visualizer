@@ -1,164 +1,147 @@
-# Personal Finance Visualizer
+# Personal Finance Dashboard
 
-**Personal Finance Visualizer** is a web application built with Next.js 13, React, and Tailwind CSS. It allows users to track their expenses, view transaction history, and visualize monthly spending using charts.
+A **Personal Finance Dashboard** built with **Next.js** to help users track expenses, set monthly budgets, compare spending with budgets, and gain insights into their financial habits. This project is modular and scalable, making it easy to extend and customize.
 
 ---
 
 ## Features
 
-- **Add Transactions**: Input details like amount, date, and description of transactions.
-- **Transaction List**: View all past transactions in an organized list.
-- **Monthly Expenses Chart**: Visualize monthly spending with an interactive bar chart using Recharts.
-- **Responsive Design**: Optimized for various devices using Tailwind CSS.
-- **API Integration**: Backend APIs to handle transactions and data storage.
+### 1. **Transaction Management**
+- Add, delete, and list financial transactions.
+- Track transactions with details like amount, date, description, and category.
+
+### 2. **Monthly Expense Breakdown**
+- Visualize expenses categorized by type (Food, Transport, Shopping, etc.).
+- **Pie Chart** and **Bar Chart** comparison for better clarity.
+
+### 3. **Monthly Category Budgets**
+- Set a budget for each spending category.
+- Budgets can be updated monthly to adapt to changing financial goals.
+
+### 4. **Budget vs Actual Comparison**
+- Compare actual spending with set budgets using a **bar chart**.
+- Identify areas where spending exceeds the budget.
+
+### 5. **Spending Insights**
+- Get simple insights into your spending patterns:
+  - Largest spending category.
+  - Categories exceeding the budget.
+  - Remaining budget for the month.
+  - Total spending summary.
 
 ---
 
-## Tech Stack
+## Components Overview
 
-- **Frontend**: Next.js 13 (App Router), React, Tailwind CSS
-- **Backend**: Next.js API Routes
-- **Charting**: Recharts
-- **Database**: MongoDB (or any database of your choice)
-- **Deployment**: Vercel
+### `TransactionForm`
+- A form to add new transactions with fields for:
+  - Amount
+  - Date
+  - Description
+  - Category
 
----
+### `TransactionList`
+- A list displaying all transactions.
+- Includes a delete option for removing transactions.
 
-## Installation
+### `MonthlyExpenseChart`
+- A visual representation of expenses using **Pie Chart** and **Bar Chart**.
+- Toggle between chart types.
 
-Follow these steps to run the project locally:
+### `DashboardSummary`
+- Provides a quick summary of all transactions:
+  - Total income
+  - Total expenditure
+  - Net balance
 
-### Prerequisites
-- Node.js (>=16.x)
-- npm or yarn
-- MongoDB database (optional for full functionality)
+### `BudgetForm`
+- Allows users to set or update monthly budgets for each category.
+- Budgets are stored and used for comparisons.
 
-### Clone the Repository
-```bash
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
-```
+### `BudgetVsActualChart`
+- Displays a **bar chart** to compare actual spending vs. budgets for each category.
 
-### Install Dependencies
-```bash
-npm install
-```
-
-### Configure Environment Variables
-Create a `.env.local` file in the root of your project and add the following:
-```env
-DATABASE_URL=mongodb+srv://<username>:<password>@cluster.mongodb.net/<database>
-NEXT_PUBLIC_API_KEY=your_api_key
-```
-
-Replace `<username>`, `<password>`, and `<database>` with your MongoDB credentials, or skip this step if you're not using a database.
-
-### Run the Development Server
-```bash
-npm run dev
-```
-
-Visit the app at `http://localhost:3000`.
-
----
-
-## Running the Application
-
-Once the development server is running:
-1. Open your browser and navigate to `http://localhost:3000`.
-2. Use the web interface to:
-   - Add new transactions (amount, date, and description).
-   - View a list of all transactions.
-   - Visualize your monthly expenses in a chart.
-
----
-
-## Deployment
-
-This project is deployed on **Vercel**. To deploy your own version:
-
-### Steps to Deploy on Vercel
-1. Push your code to a GitHub repository:
-   ```bash
-   git add .
-   git commit -m "Initial commit"
-   git push origin main
-   ```
-
-2. Go to [Vercel](https://vercel.com/) and import your GitHub repository.
-
-3. Set environment variables in Vercel under "Settings > Environment Variables".
-
-4. Deploy your application. Vercel will provide a live URL.
+### `SpendingInsights`
+- Highlights key spending patterns:
+  - Largest spending category
+  - Categories exceeding budgets
+  - Total spending for the month
 
 ---
 
 ## File Structure
 
 ```plaintext
-personal-finance-visualizer/
-├── .next/               # Next.js build output
-├── node_modules/        # Installed npm packages
-├── public/              # Public assets (e.g., favicon)
+nextdemo/
+├── .next/                   # Next.js build output (generated)
+├── node_modules/            # Node.js dependencies (generated)
+├── public/                  # Static files like images, fonts, etc.
 ├── src/
 │   ├── app/
-│   │   ├── components/  # Reusable React components
-│   │   │   ├── MonthlyExpensesChart.jsx
+│   │   ├── components/      # Reusable React components
+│   │   │   ├── BudgetForm.jsx
+│   │   │   ├── BudgetVsActualChart.jsx
+│   │   │   ├── SpendingInsights.jsx
+│   │   │   ├── DashboardSummary.jsx
+│   │   │   ├── MonthlyExpenseChart.jsx
 │   │   │   ├── TransactionForm.jsx
-│   │   │   └── TransactionList.jsx
-│   │   ├── pages/       # App pages and API routes
-│   │   │   ├── api/
-│   │   │   │   ├── index.jsx
-│   │   │   │   └── transactions.js
-│   │   │   └── index.jsx
-│   │   ├── utils/       # Utility functions
-│   │   │   ├── db.js
-│   │   │   └── types.js
-│   │   ├── layout.js    # Global layout
-│   │   └── page.js      # Root page for `/`
-├── .gitignore           # Files and folders to ignore in Git
-├── jsconfig.json        # JavaScript path aliases
-├── next.config.mjs      # Next.js configuration
-├── package.json         # Dependencies and scripts
-├── postcss.config.mjs   # Tailwind CSS configuration
-├── README.md            # Project documentation (this file)
+│   │   │   ├── TransactionList.jsx
+│   │   ├── pages/           # Page components (Next.js routing)
+│   │   │   ├── page.js      # Main dashboard page
+│   ├── utils/               # Utility files (if any)
+├── globals.css              # Global CSS for styling
+├── jsconfig.json            # JavaScript configuration for path aliases
+├── layout.js                # Layout component for the app
+├── next.config.mjs          # Next.js configuration file
+├── package.json             # Project dependencies and scripts
+├── README.md                # Documentation for the project
 ```
 
 ---
 
-## Usage
+## How to Use
 
-- **Add Transactions**: Use the form to input a transaction with amount, date, and description.
-- **View Transactions**: All transactions will appear in a list below the form.
-- **Visualize Expenses**: View monthly spending trends in the bar chart.
+### 1. **Clone the Repository**
+```bash
+git clone https://github.com/<your-username>/personal-finance-dashboard.git
+cd personal-finance-dashboard
+```
+
+### 2. **Install Dependencies**
+```bash
+npm install
+```
+
+### 3. **Run the Development Server**
+```bash
+npm run dev
+```
+- Open [http://localhost:3000](http://localhost:3000) in your browser to view the dashboard.
+
+### 4. **Build for Production**
+```bash
+npm run build
+```
+
+### 5. **Start the Production Server**
+```bash
+npm start
+```
 
 ---
 
-## Contributing
-
-Contributions are welcome! To contribute:
-
-1. Fork the repository.
-2. Create a new branch:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. Make your changes and commit:
-   ```bash
-   git commit -m "Add some feature"
-   ```
-4. Push to your fork and submit a pull request.
+## Future Enhancements
+- Add support for recurring transactions.
+- Integration with external APIs for real-time currency exchange rates.
+- Export transaction data as CSV or Excel.
+- Dark mode toggle for better user experience.
 
 ---
 
 ## License
-
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the MIT License. Feel free to use and modify it as per your needs.
 
 ---
 
-## Acknowledgments
-
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [Recharts Documentation](https://recharts.org/)
+## Questions or Feedback?
+Feel free to reach out by opening an issue or submitting a pull request!
